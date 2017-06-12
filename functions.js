@@ -1263,9 +1263,6 @@
     /*
      * Função para gerar o código:
      */
-    var generateCode = function (codeType) {
-
-    };
 
   });
 }(jQuery));
