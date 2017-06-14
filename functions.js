@@ -1,4 +1,4 @@
-/*globals jQuery*/
+/*globals jQuery, Clipboard*/
 (function ($) {
   'use strict';
 
@@ -14,7 +14,6 @@
      *! BEGIN PARTE 1 !
      */
     var $zone = $('.entry-prev');
-    var $config = $('.config-form');
     var $table = $('.presets-table table');
 
     /*
@@ -1302,13 +1301,13 @@
       if (codeType === 'topiccode') {
         $install.find('h2.part-title span.html-form-type').text('Novo Tópico');
 
-        var formTitle = $('.part-fa-newtopic #fa-form-title').val();
-        var topicTitle = $('.part-fa-newtopic #fa-newtopic-title').val();
-        var forumValue = $('.part-fa-newtopic #fa-newtopic-number').val();
-        var topicMessage = $('.part-fa-newtopic #fa-newtopic-message').val().trim();
+        var POSTformTitle = $('.part-fa-newtopic #fa-form-title').val();
+        var POSTtopicTitle = $('.part-fa-newtopic #fa-newtopic-title').val();
+        var POSTforumValue = $('.part-fa-newtopic #fa-newtopic-number').val();
+        var POSTtopicMessage = $('.part-fa-newtopic #fa-newtopic-message').val().trim();
 
 
-        var generatedCode = [
+        var POSTgeneratedCode = [
           '<!DOCTYPE html>',
           '<html>',
           '<!-- ->',
@@ -1321,7 +1320,7 @@
           '  <meta charset="UTF-8">',
           '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
           '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
-          '  <title>' + formTitle + '</title>',
+          '  <title>' + POSTformTitle + '</title>',
           '',
           '  <style type="text/css">',
           '    *,',
@@ -1447,7 +1446,7 @@
           '',
           '  <form id="fa-generated-form">',
           '    <div class="fa-form-wrapper">',
-          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + formTitle + '</span>',
+          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + POSTformTitle + '</span>',
           '      <!-- BEGIN Generated HTML Code -->',
           '      ' + $('.entry-prev').html().trim(),
           '      <!-- END Generated HTML Code -->',
@@ -1462,8 +1461,8 @@
           '  <!-- Javascript\'s -->',
           '  <!-- Não é recomendada a edição abaixo desta linha. -->',
           '',
-          '  <textarea style="display: none;" id="fa-generated-message">' + topicMessage + '</textarea>',
-          '  <input type="hidden" id="fa-generated-title" value="' + topicTitle + '" />',
+          '  <textarea style="display: none;" id="fa-generated-message">' + POSTtopicMessage + '</textarea>',
+          '  <input type="hidden" id="fa-generated-title" value="' + POSTtopicTitle + '" />',
           '',
           '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>',
           '  <script src="https://lffg.github.io/fdf/js/form-replace.js" type="text/javascript"></script>',
@@ -1478,7 +1477,7 @@
           '         setTimeout(function () {',
           '    			  $.post(\'/post\', {',
           '    			  	subject: $(\'#fa-generated-title\').val().trim(),',
-          '    				  f: ' + forumValue + ',',
+          '    				  f: ' + POSTforumValue + ',',
           '    			  	message: $(\'#fa-generated-message\').val().trim(),',
           '    			  	mode: \'newtopic\',',
           '    			  	tid: $(\'[name="tid"]:first\').val(),',
@@ -1498,18 +1497,18 @@
           '</html>',
         ].join('\n');
 
-        $('#generated-code-zone pre').text(generatedCode);
+        $('#generated-code-zone pre').text(POSTgeneratedCode);
       } // End topiccode
 
       if (codeType === 'postcode') {
         $install.find('h2.part-title span.html-form-type').text('Responder ao Tópico');
 
-        var formTitle = $('.part-fa-newpost #fa-form-title').val();
-        var topicValue = $('.part-fa-newpost #fa-newpost-number').val();
-        var topicMessage = $('.part-fa-newpost #fa-newpost-message').val().trim();
+        var REPLYformTitle = $('.part-fa-newpost #fa-form-title').val();
+        var REPLYtopicValue = $('.part-fa-newpost #fa-newpost-number').val();
+        var REPLYtopicMessage = $('.part-fa-newpost #fa-newpost-message').val().trim();
 
 
-        var generatedCode = [
+        var REPLYgeneratedCode = [
           '<!DOCTYPE html>',
           '<html>',
           '<!-- ->',
@@ -1522,7 +1521,7 @@
           '  <meta charset="UTF-8">',
           '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
           '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
-          '  <title>' + formTitle + '</title>',
+          '  <title>' + REPLYformTitle + '</title>',
           '',
           '  <style type="text/css">',
           '    *,',
@@ -1648,7 +1647,7 @@
           '',
           '  <form id="fa-generated-form">',
           '    <div class="fa-form-wrapper">',
-          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + formTitle + '</span>',
+          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + REPLYformTitle + '</span>',
           '      <!-- BEGIN Generated HTML Code -->',
           '      ' + $('.entry-prev').html().trim(),
           '      <!-- END Generated HTML Code -->',
@@ -1663,7 +1662,7 @@
           '  <!-- Javascript\'s -->',
           '  <!-- Não é recomendada a edição abaixo desta linha. -->',
           '',
-          '  <textarea style="display: none;" id="fa-generated-message">' + topicMessage + '</textarea>',
+          '  <textarea style="display: none;" id="fa-generated-message">' + REPLYtopicMessage + '</textarea>',
           '',
           '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>',
           '  <script src="https://lffg.github.io/fdf/js/form-replace.js" type="text/javascript"></script>',
@@ -1677,7 +1676,7 @@
           '         $(this).find(\'button[type="submit"]\').text(\'Postando...\');',
           '         setTimeout(function () {',
           '    		  	$.post(\'/post\', {',
-          '    			  	t: ' + topicValue + ',',
+          '    			  	t: ' + REPLYtopicValue + ',',
           '    				  message: $(\'#fa-generated-message\').val().trim(),',
           '    				  mode: \'reply\',',
           '    				  tid: $(\'[name="tid"]:first\').val(),',
@@ -1697,7 +1696,7 @@
           '</html>',
         ].join('\n');
 
-        $('#generated-code-zone pre').text(generatedCode);
+        $('#generated-code-zone pre').text(REPLYgeneratedCode);
       } // End postcode
 
       /*
@@ -1711,7 +1710,7 @@
     /*
      * Copy Btn.
      */
-    var copyBtn = $('<a>', {
+    $('<a>', {
  	    class: 'fa fa-clipboard',
  	    id: 'fa-copy-content',
       style: [
