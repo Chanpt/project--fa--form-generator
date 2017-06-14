@@ -365,7 +365,7 @@
 
                       $parent
                         .find('select')
-                          .append('<option value="' + text + '">' + text + '</option>');
+                          .append('<option value="' + text + '">' + text + '</option>\n');
                     });
                   }
 
@@ -625,6 +625,7 @@
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
                 '  <input type="text" data-type="text" id="' + inputId + '" placeholder="' + inputPlaceholder + '" ' + inputRequired + ' />',
                 '</div>',
+                '',
               ].join('\n'));
 
               console.info('[Generator] Input of text generated successfully!');
@@ -695,6 +696,7 @@
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
                 '  <textarea data-type="textarea" id="' + inputId + '" placeholder="' + inputPlaceholder + '" ' + inputRequired + '></textarea>',
                 '</div>',
+                '',
               ].join('\n'));
 
               console.info('[Generator] Textarea generated successfully!');
@@ -760,6 +762,7 @@
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
                 '  <input type="date" data-type="date" id="' + inputId + '" ' + inputRequired + ' />',
                 '</div>',
+                '',
               ].join('\n'));
 
               console.info('[Generator] Input of date generated successfully!');
@@ -815,6 +818,7 @@
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
                 '  <input type="color" data-type="color" id="' + inputId + '" />',
                 '</div>',
+                '',
               ].join('\n'));
 
               console.info('[Generator] Input of color generated successfully!');
@@ -895,6 +899,7 @@
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
                 '  <input type="number" data-type="number" id="' + inputId + '" placeholder="' + inputPlaceholder + '" max="' + inputMax + '" min="' + inputMin + '" ' + inputRequired + ' />',
                 '</div>',
+                '',
               ].join('\n'));
 
               console.info('[Generator] Input of number generated successfully!');
@@ -963,9 +968,9 @@
               $zone.append([
                 '<div class="fa-form-group">',
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
-                '  <select data-type="select" id="' + inputId + '" ' + inputRequired + ' />',
-                '  </select>',
+                '  <select data-type="select" id="' + inputId + '" ' + inputRequired + ' /></select>',
                 '</div>',
+                '',
               ].join('\n'));
 
               var valsOfSelect = inputVals.split('\n');
@@ -976,9 +981,17 @@
               		return;
                 }
 
+                if ($zone.find('select#' + inputId).find('option').length === 0) {
+                  $zone
+                    .find('select#' + inputId)
+                      .append('\n<!-- First -->\n<option value="' + text + '">' + text + '</option>\n')
+                  ;
+                  return;
+                }
+
               	$zone
-                  .find('select')
-                    .append('<option value="' + text + '">' + text + '</option>')
+                  .find('select#' + inputId)
+                    .append('<option value="' + text + '">' + text + '</option>\n')
                 ;
               });
 
@@ -1048,9 +1061,9 @@
               $zone.append([
                 '<div class="fa-form-group">',
                 '  <label for="' + inputId + '">' + inputLabel + '</label>',
-                '  <select multiple data-type="select" id="' + inputId + '" ' + inputRequired + ' />',
-                '  </select>',
+                '  <select multiple data-type="select" id="' + inputId + '" ' + inputRequired + ' /></select>',
                 '</div>',
+                '',
               ].join('\n'));
 
               var valsOfSelect = inputVals.split('\n');
@@ -1061,9 +1074,17 @@
               		return;
                 }
 
+                if ($zone.find('select#' + inputId).find('option').length === 0) {
+                  $zone
+                    .find('select#' + inputId)
+                      .append('\n<!-- First -->\n<option value="' + text + '">' + text + '</option>\n')
+                  ;
+                  return;
+                }
+
               	$zone
-                  .find('select')
-                    .append('<option value="' + text + '">' + text + '</option>')
+                  .find('select#' + inputId)
+                    .append('<option value="' + text + '">' + text + '</option>\n')
                 ;
               });
 
@@ -1178,7 +1199,7 @@
     /*
      * Botão da parte 1 que leva à 2:
      */
-    $('#create-text-btn, #step-2').on('click', function () {
+    $('#create-text-btn, #step-2, #back-to-2').on('click', function () {
       if ($('.entry-prev').find('.fa-form-group').length === 0 ) {
         alert('Você deve criar ao menos um campo!');
         return;
@@ -1224,6 +1245,12 @@
         ;
 
       });
+
+      /*
+       * Arrumar a parte 2.
+       */
+      var presetesTableHeight = $('.presets-table').height() - 1;
+      $('.config-form').css('min-height', presetesTableHeight + 'px');
     }
 
     /*
@@ -1261,8 +1288,446 @@
     });
 
     /*
+     * Parte 03:
      * Função para gerar o código:
+     * topiccode, postcode, pmcode
      */
 
+    var $install = $('.install-wrapper');
+
+    var generateCode = function (codeType) {
+
+      $.getScript('https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js');
+
+      if (codeType === 'topiccode') {
+        $install.find('h2.part-title span.html-form-type').text('Novo Tópico');
+
+        var formTitle = $('.part-fa-newtopic #fa-form-title').val();
+        var topicTitle = $('.part-fa-newtopic #fa-newtopic-title').val();
+        var forumValue = $('.part-fa-newtopic #fa-newtopic-number').val();
+        var topicMessage = $('.part-fa-newtopic #fa-newtopic-message').val().trim();
+
+
+        var generatedCode = [
+          '<!DOCTYPE html>',
+          '<html>',
+          '<!-- ->',
+          '/*',
+          ' * Gerado em <ajuda.forumeiros.com>.',
+          ' * Gerador (2.0) feito por Luiz~',
+          ' */',
+          '<- -->',
+          '<head>',
+          '  <meta charset="UTF-8">',
+          '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+          '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
+          '  <title>' + formTitle + '</title>',
+          '',
+          '  <style type="text/css">',
+          '    *,',
+          '    *::before,',
+          '    *::after {',
+          '      padding: 0px;',
+          '      margin: 0px;',
+          '      box-sizing: border-box;',
+          '    }',
+          '',
+          '    html,',
+          '    body {',
+          '      height: 100%;',
+          '    }',
+          '',
+          '    body {',
+          '      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";',
+          '      font-size: 14px;',
+          '      line-height: 1.5;',
+          '      color: #24292e;',
+          '      background-color: #fff;',
+          '    }',
+          '',
+          '    #fa-generated-form {',
+          '      width: 60%;',
+          '      margin: 0 auto;',
+          '      background-color: #fff;',
+          '      border: solid 1px #ddd;',
+          '      border-top: none;',
+          '      border-radius: 0 0 3px 3px;',
+          '    }',
+          '',
+          '    .fa-form-wrapper {',
+          '      width: 100%;',
+          '    }',
+          '',
+          '    .fa-form-group {',
+          '      display: block;',
+          '      width: 100%;',
+          '      background-color: #ddd;',
+          '      padding: 20px;',
+          '    }',
+          '',
+          '    .fa-form-group:nth-child(odd) {',
+          '      background-color: #fff;',
+          '    }',
+          '',
+          '    .fa-form-group label {',
+          '      display: block;',
+          '      font-size: 16px;',
+          '      margin-bottom: 5px;',
+          '    }',
+          '',
+          '    .fa-form-group input,',
+          '    .fa-form-group textarea,',
+          '    .fa-form-group select {',
+          '      display: block;',
+          '      width: 100%;',
+          '      padding: .5rem .75rem;',
+          '      font-size: 1rem;',
+          '      line-height: 1.25;',
+          '      color: #464a4c;',
+          '      background-color: #fff;',
+          '      background-image: none;',
+          '      -webkit-background-clip: padding-box;',
+          '      background-clip: padding-box;',
+          '      border: 1px solid rgba(0,0,0,.15);',
+          '      border-radius: .25rem;',
+          '      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '    }',
+          '',
+          '    .fa-form-group input:focus,',
+          '    .fa-form-group textarea:focus,',
+          '    .fa-form-group select:focus {',
+          '      color: #464a4c;',
+          '      background-color: #fff;',
+          '      border-color: #5cb3fd;',
+          '      outline: 0;',
+          '    }',
+          '',
+          '    .fa-form-group select[multiple] {',
+          '      padding-right: 0px;',
+          '    }',
+          '',
+          '    .fa-submit {',
+          '      display: block;',
+          '      width: 100%;',
+          '      padding: 20px;',
+          '    }',
+          '',
+          '    .fa-submit button {',
+          '      padding: 10px 20px;',
+          '      background-color: #3072ab;',
+          '      color: #fff;',
+          '      font-size: 14px;',
+          '      border: none;',
+          '      border-radius: 3px;',
+          '    }',
+          '',
+          '    .fa-submit button:hover {',
+          '      background-color: #2a6192;',
+          '    }',
+          '',
+          '    [class*="conteneur"] form#fa-generated-form {',
+          '      border-top: solid 1px #ddd;',
+          '      margin-top: 20px;',
+          '      border-radius: 3px!important;',
+          '    }',
+          '',
+          '    @media (max-width: 700px) {',
+          '      #fa-generated-form {',
+          '       width: 100%;',
+          '       border: none;',
+          '      }',
+          '    }',
+          '  </style>',
+          '</head>',
+          '<body>',
+          '',
+          '  <form id="fa-generated-form">',
+          '    <div class="fa-form-wrapper">',
+          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + formTitle + '</span>',
+          '      <!-- BEGIN Generated HTML Code -->',
+          '      ' + $('.entry-prev').html().trim(),
+          '      <!-- END Generated HTML Code -->',
+          '    </div>',
+          '    <div class="fa-submit">',
+          '      <button class="post-button" type="submit">Enviar Formulário</button>',
+          '    </div>',
+          '  </form>',
+          '',
+          '',
+          '',
+          '  <!-- Javascript\'s -->',
+          '  <!-- Não é recomendada a edição abaixo desta linha. -->',
+          '',
+          '  <textarea style="display: none;" id="fa-generated-message">' + topicMessage + '</textarea>',
+          '  <input type="hidden" id="fa-generated-title" value="' + topicTitle + '" />',
+          '',
+          '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>',
+          '  <script src="https://lffg.github.io/fdf/js/form-replace.js" type="text/javascript"></script>',
+          '  <script type="text/javascript">',
+          '    (function ($) {',
+          '    	\'use strict\';',
+          '',
+          '    	$(window).on(\'load\', function () {',
+          '    		$(\'#fa-generated-form\').on(\'submit\', function (event) {',
+          '         event.preventDefault();',
+          '         $(this).find(\'button[type="submit"]\').text(\'Postando...\');',
+          '         setTimeout(function () {',
+          '    			  $.post(\'/post\', {',
+          '    			  	subject: $(\'#fa-generated-title\').val().trim(),',
+          '    				  f: ' + forumValue + ',',
+          '    			  	message: $(\'#fa-generated-message\').val().trim(),',
+          '    			  	mode: \'newtopic\',',
+          '    			  	tid: $(\'[name="tid"]:first\').val(),',
+          '    			  	post: 1,',
+          '    		  	}).done(function () {',
+          '    			  	alert(\'Postado com sucesso. Você será redirecionado para o índice...\');',
+          '    			  	location.pathname = \'/\';',
+          '    			  }).fail(function () {',
+          '    			  	alert(\'Houve um erro! Tente novamente!\');',
+          '    			  });',
+          '         }, 600);',
+          '    		});',
+          '    	});',
+          '    }(jQuery));',
+          '  </script>',
+          '</body>',
+          '</html>',
+        ].join('\n');
+
+        $('#generated-code-zone pre').text(generatedCode);
+      } // End topiccode
+
+      if (codeType === 'postcode') {
+        $install.find('h2.part-title span.html-form-type').text('Responder ao Tópico');
+
+        var formTitle = $('.part-fa-newpost #fa-form-title').val();
+        var topicValue = $('.part-fa-newpost #fa-newpost-number').val();
+        var topicMessage = $('.part-fa-newpost #fa-newpost-message').val().trim();
+
+
+        var generatedCode = [
+          '<!DOCTYPE html>',
+          '<html>',
+          '<!-- ->',
+          '/*',
+          ' * Gerado em <ajuda.forumeiros.com>.',
+          ' * Gerador (2.0) feito por Luiz~',
+          ' */',
+          '<- -->',
+          '<head>',
+          '  <meta charset="UTF-8">',
+          '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+          '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
+          '  <title>' + formTitle + '</title>',
+          '',
+          '  <style type="text/css">',
+          '    *,',
+          '    *::before,',
+          '    *::after {',
+          '      padding: 0px;',
+          '      margin: 0px;',
+          '      box-sizing: border-box;',
+          '    }',
+          '',
+          '    html,',
+          '    body {',
+          '      height: 100%;',
+          '    }',
+          '',
+          '    body {',
+          '      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";',
+          '      font-size: 14px;',
+          '      line-height: 1.5;',
+          '      color: #24292e;',
+          '      background-color: #fff;',
+          '    }',
+          '',
+          '    #fa-generated-form {',
+          '      width: 60%;',
+          '      margin: 0 auto;',
+          '      background-color: #fff;',
+          '      border: solid 1px #ddd;',
+          '      border-top: none;',
+          '      border-radius: 0 0 3px 3px;',
+          '    }',
+          '',
+          '    .fa-form-wrapper {',
+          '      width: 100%;',
+          '    }',
+          '',
+          '    .fa-form-group {',
+          '      display: block;',
+          '      width: 100%;',
+          '      background-color: #ddd;',
+          '      padding: 20px;',
+          '    }',
+          '',
+          '    .fa-form-group:nth-child(odd) {',
+          '      background-color: #fff;',
+          '    }',
+          '',
+          '    .fa-form-group label {',
+          '      display: block;',
+          '      font-size: 16px;',
+          '      margin-bottom: 5px;',
+          '    }',
+          '',
+          '    .fa-form-group input,',
+          '    .fa-form-group textarea,',
+          '    .fa-form-group select {',
+          '      display: block;',
+          '      width: 100%;',
+          '      padding: .5rem .75rem;',
+          '      font-size: 1rem;',
+          '      line-height: 1.25;',
+          '      color: #464a4c;',
+          '      background-color: #fff;',
+          '      background-image: none;',
+          '      -webkit-background-clip: padding-box;',
+          '      background-clip: padding-box;',
+          '      border: 1px solid rgba(0,0,0,.15);',
+          '      border-radius: .25rem;',
+          '      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;',
+          '      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;',
+          '    }',
+          '',
+          '    .fa-form-group input:focus,',
+          '    .fa-form-group textarea:focus,',
+          '    .fa-form-group select:focus {',
+          '      color: #464a4c;',
+          '      background-color: #fff;',
+          '      border-color: #5cb3fd;',
+          '      outline: 0;',
+          '    }',
+          '',
+          '    .fa-form-group select[multiple] {',
+          '      padding-right: 0px;',
+          '    }',
+          '',
+          '    .fa-submit {',
+          '      display: block;',
+          '      width: 100%;',
+          '      padding: 20px;',
+          '    }',
+          '',
+          '    .fa-submit button {',
+          '      padding: 10px 20px;',
+          '      background-color: #3072ab;',
+          '      color: #fff;',
+          '      font-size: 14px;',
+          '      border: none;',
+          '      border-radius: 3px;',
+          '    }',
+          '',
+          '    .fa-submit button:hover {',
+          '      background-color: #2a6192;',
+          '    }',
+          '',
+          '    [class*="conteneur"] form#fa-generated-form {',
+          '      border-top: solid 1px #ddd;',
+          '      margin-top: 20px;',
+          '      border-radius: 3px!important;',
+          '    }',
+          '',
+          '    @media (max-width: 700px) {',
+          '      #fa-generated-form {',
+          '       width: 100%;',
+          '       border: none;',
+          '      }',
+          '    }',
+          '  </style>',
+          '</head>',
+          '<body>',
+          '',
+          '  <form id="fa-generated-form">',
+          '    <div class="fa-form-wrapper">',
+          '      <span style="font-size: 25px; display: block; text-align: center; margin: 15px 0px;">' + formTitle + '</span>',
+          '      <!-- BEGIN Generated HTML Code -->',
+          '      ' + $('.entry-prev').html().trim(),
+          '      <!-- END Generated HTML Code -->',
+          '    </div>',
+          '    <div class="fa-submit">',
+          '      <button class="post-button" type="submit">Enviar Formulário</button>',
+          '    </div>',
+          '  </form>',
+          '',
+          '',
+          '',
+          '  <!-- Javascript\'s -->',
+          '  <!-- Não é recomendada a edição abaixo desta linha. -->',
+          '',
+          '  <textarea style="display: none;" id="fa-generated-message">' + topicMessage + '</textarea>',
+          '',
+          '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>',
+          '  <script src="https://lffg.github.io/fdf/js/form-replace.js" type="text/javascript"></script>',
+          '  <script type="text/javascript">',
+          '    (function ($) {',
+          '    	\'use strict\';',
+          '',
+          '    	$(window).on(\'load\', function () {',
+          '    		$(\'#fa-generated-form\').on(\'submit\', function (event) {',
+          '         event.preventDefault();',
+          '         $(this).find(\'button[type="submit"]\').text(\'Postando...\');',
+          '         setTimeout(function () {',
+          '    		  	$.post(\'/post\', {',
+          '    			  	t: ' + topicValue + ',',
+          '    				  message: $(\'#fa-generated-message\').val().trim(),',
+          '    				  mode: \'reply\',',
+          '    				  tid: $(\'[name="tid"]:first\').val(),',
+          '    				  post: 1,',
+          '    		  	}).done(function () {',
+          '    				  alert(\'Postado com sucesso. Você será redirecionado para o índice...\');',
+          '    				  location.pathname = \'/\';',
+          '    			  }).fail(function () {',
+          '    				  alert(\'Houve um erro! Tente novamente!\');',
+          '    			  });',
+          '         }, 600);',
+          '    		});',
+          '    	});',
+          '    }(jQuery));',
+          '  </script>',
+          '</body>',
+          '</html>',
+        ].join('\n');
+
+        $('#generated-code-zone pre').text(generatedCode);
+      } // End postcode
+
+      /*
+       * Gerar o código novamente caso saia da parte 3:
+       */
+      $('#back-to-2, #step-1, #step-2').on('click', function () {
+        $install.find('h3 span.form-type').text('');
+      });
+    };
+
+    /*
+     * Copy Btn.
+     */
+    var copyBtn = $('<a>', {
+ 	    class: 'fa fa-clipboard',
+ 	    id: 'fa-copy-content',
+      style: [
+        'position: absolute;',
+        'top: 15px;',
+        'right: 32px;',
+        'z-index: 99;',
+        'color: #3b3b3b;',
+        'text-decoration: none!important;',
+      ].join(' ')
+    }).prependTo('.code-zone-to-append code');
+
+    new Clipboard('#fa-copy-content', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
   });
 }(jQuery));

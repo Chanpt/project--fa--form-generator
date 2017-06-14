@@ -10,7 +10,7 @@
  *  [!] NÃO DISTRIBUIR! [!]
  *
  */
-<- -->
+<--->
 <html>
 <head>
   <meta charset="UTF-8">
@@ -81,30 +81,56 @@
 
           <div class="prev-wrap">
 
-            <div class="entry-prev">
+            <!-- ENTRY PREV BEGIN -->
+            <div class="entry-prev"><div class="fa-form-group">
+  <label for="campo1">Select Unique #1</label>
+  <select data-type="select" id="campo1">
+<!-- First -->
+<option value="AAA">AAA</option>
+<option value="BBB">BBB</option>
+<option value="CCC">CCC</option>
+</select>
 
-              <div class="fa-form-group">
-                <label for="campo0">Label X</label>
-                <input type="text" id="campo0" placeholder="Placeholder">
-              </div>
-              <div class="fa-form-group">
-                <label for="campo00">Select</label>
-                <select id="campo00">
-                  <option value="A">AAA</option>
-                  <option value="B">BBB</option>
-                  <option value="C">CCC</option>
-                </select>
-              </div>
-              <div class="fa-form-group">
-                <label for="campo000">Textarea</label>
-                <textarea type="textarea" id="campo000" placeholder="Sou uma zona de texto! Olá, mundo!" required=""></textarea>
-              </div>
-              <div class="fa-form-group">
-                <label for="campo0000">Label 1</label>
-                <input type="text" id="campo0000" placeholder="Placeholder" required="">
-              </div>
+</div>
+<div class="fa-form-group">
+  <label for="campo3">Select Unique #2</label>
+  <select data-type="select" id="campo3">
+<!-- First -->
 
-            </div><!-- .entry-prev -->
+
+
+<option value="XXX">XXX</option>
+<option value="YYY">YYY</option>
+<option value="ZZZ">ZZZ</option>
+</select>
+
+</div>
+<div class="fa-form-group">
+  <label for="campo4">Select Multiple #1</label>
+  <select multiple="" data-type="select" id="campo4" required="">
+<!-- First -->
+<option value="DDD">DDD</option>
+<option value="EEE">EEE</option>
+<option value="FFF">FFF</option>
+</select>
+
+</div>
+<div class="fa-form-group">
+  <label for="campo5">Select Multiple #2</label>
+  <select multiple="" data-type="select" id="campo5">
+<!-- First -->
+
+
+
+<option value="OOO">OOO</option>
+<option value="PPP">PPP</option>
+<option value="QQQ">QQQ</option>
+<option value="RRR">RRR</option>
+</select>
+
+</div>
+            </div>
+            <!-- ENTRY PREV END -->
           </div><!-- .prev-wrap -->
           <button id="create-text-btn" class="font next-part">Próxima Parte <i class="fa fa-angle-right"></i></button>
         </div><!-- .wrapper-inner -->
@@ -167,13 +193,13 @@
 
           <form class="config-part part-fa-newtopic" data-toggle="form-newtopic" style="display: none;">
             <div class="fa-form-group">
-              <label for="fa-newtopic-title">Título do tópico:</label>
-              <input type="text" id="fa-newtopic-title" required />
+              <label for="fa-form-title">Título do formulário:</label>
+              <input type="text" id="fa-form-title" required />
             </div>
 
             <div class="fa-form-group">
-              <label for="fa-newtopic-desc">Descrição do tópico:</label>
-              <input type="text" id="fa-newtopic-desc" placeholder="Só funcionará caso o recurso esteja ativado." required />
+              <label for="fa-newtopic-title">Título do tópico:</label>
+              <input type="text" id="fa-newtopic-title" required />
             </div>
 
             <div class="fa-form-group">
@@ -191,6 +217,11 @@
 
           <form class="config-part part-fa-newpost" data-toggle="form-newpost" style="display: none;">
             <div class="fa-form-group">
+              <label for="fa-form-title">Título do formulário:</label>
+              <input type="text" id="fa-form-title" required />
+            </div>
+
+            <div class="fa-form-group">
               <label for="fa-newpost-number">ID do tópico à qual será postado:</label>
               <input type="number" id="fa-newpost-number" required />
             </div>
@@ -204,6 +235,11 @@
           </form>
 
           <form class="config-part part-fa-newmp" data-toggle="form-newmp" style="display: none;">
+            <div class="fa-form-group">
+              <label for="fa-form-title">Título do formulário:</label>
+              <input type="text" id="fa-form-title" required />
+            </div>
+
             <div class="fa-form-group">
               <label for="fa-newmp-title">Título da Mensagem Privada:</label>
               <input type="text" id="fa-newmp-title" required />
@@ -242,6 +278,26 @@
     </div>
     <div class="wrap">
       <div class="part generate-code clearfix">
+        <div class="install-wrapper">
+          <h2 class="part-title"><i class="fa fa-edit"></i> Criação da página HTML (<span class="html-form-type"></span>)</h2>
+          <div class="install-code">
+            <p>
+              Em seu <strong>Painel de Controle</strong>, aceda à:
+              <br />
+              <strong>Módulos <i class="fa fa-long-arrow-right"></i> Gestão das Páginas HTML & JavaScript <i class="fa fa-long-arrow-right"></i> Gestão das Páginas HTML.</strong>
+              <br />
+              Feito isso, <strong>crie uma nova página</strong> com o código a seguir. Frisa-se que o título fica à seu critério.
+              <br />
+              Ressalta-se também que caso seja de seu agrado, você pode personalizar o formulário, tanto no quesito HTML, quanto no CSS, desde que você tenha conhecimento no assunto.
+            </p>
+            <!-- O código será gerado aqui -->
+            <div class="code-zone-to-append">
+              <code id="generated-code-zone" class="codebox">
+                <pre class="lang-html prettyprint linenums"></pre>
+              </code>
+            </div>
+          </div>
+        </div>
 
         <!-- Back btn: -->
         <button id="back-to-2" class="back-part-btn font"><i class="fa fa-angle-left"></i> Voltar</button>
@@ -299,6 +355,7 @@
 
   <!-- Javascript's -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
   <script type="text/javascript" src="functions.js"></script>
 
 </body>
