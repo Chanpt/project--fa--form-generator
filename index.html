@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- >
+<!-- ->
 /*
  *! Gerador de Formulários 2.0
  *
@@ -10,13 +10,14 @@
  *  [!] NÃO DISTRIBUIR! [!]
  *
  */
-<--->
+<!- -->
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Gerador de Formulários</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://illiweb.com/fa/favicon/discussion.ico">
 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,400i,700,700i" rel="stylesheet">
@@ -138,7 +139,6 @@
               <option value="" selected disabled>Selecione...</option>
               <option value="form-newtopic">Criar um novo tópico.</option>
               <option value="form-newpost">Responder à um tópico já existente.</option>
-              <option value="form-newmp">Enviar uma MP à um usuário específico.</option>
             </select>
           </div>
 
@@ -184,30 +184,6 @@
 
             <button data-code="postcode" type="submit" class="generate-code font next-part">Gerar Código <i class="fa fa-angle-right"></i></button>
           </form>
-
-          <form class="config-part part-fa-newmp" data-toggle="form-newmp" style="display: none;">
-            <div class="fa-form-group">
-              <label for="fa-form-title">Título do formulário:</label>
-              <input type="text" id="fa-form-title" required />
-            </div>
-
-            <div class="fa-form-group">
-              <label for="fa-newmp-title">Título da Mensagem Privada:</label>
-              <input type="text" id="fa-newmp-title" required />
-            </div>
-
-            <div class="fa-form-group">
-              <label for="fa-newmp-destinatary">Nick do destinatário:</label>
-              <input type="text" id="fa-newmp-destinatary" maxlength="40" placeholder="Somente UM nick, ou irá dar erro!" required />
-            </div>
-
-            <div class="fa-form-group">
-              <label for="fa-newmp-message">Conteúdo da Mensagem Privada:</label>
-              <textarea id="fa-newmp-message" required></textarea>
-            </div>
-
-            <button data-code="pmcode" type="submit" class="generate-code font next-part">Gerar Código <i class="fa fa-angle-right"></i></button>
-          </form>
         </div>
 
         <!-- Back btn -->
@@ -244,7 +220,7 @@
             <!-- O código será gerado aqui -->
             <div class="code-zone-to-append">
               <code id="generated-code-zone" class="codebox">
-                <pre class="lang-html prettyprint linenums"></pre>
+                <pre class="lang-html prettyprint"></pre>
               </code>
             </div>
           </div>

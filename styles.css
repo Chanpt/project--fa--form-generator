@@ -667,26 +667,8 @@ textarea#input-vals,
   border-radius: 3px;
   margin: 10px 0px;
   border: none!important;
-  padding: 20px 15px 20px 70px!important;
+  padding: 20px 15px 20px 20px!important;
   position: relative;
-}
-
-.codebox pre::before {
-  content: 'Carregando...';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: #fff;
-  text-align: center;
-  padding: 95px;
-}
-
-.codebox pre.prettyprinted::before {
-  content: none;
-  display: none;
 }
 
 code.codebox > pre ol li {
@@ -705,8 +687,8 @@ code.codebox > pre ol.linenums {
  */
 
 table {
-  display: block;
-  width: 194px;
+  display: inline-block;
+  max-width: 194px;
   border-spacing: 0;
   border: solid 0px;
   border-collapse: collapse;
@@ -735,7 +717,7 @@ table tr td {
   border: 1px solid #39c;
   color: #333;
   text-align: center;
-  padding: 3px 4px;
+  padding: 5px 5px;
 }
 
 table thead tr td:last-child {
@@ -869,5 +851,12 @@ table thead tr td:last-child {
   body.is-editing .fa-form-group textarea,
   body.is-editing .fa-form-group select {
     width: 58%;
+  }
+
+  .modal {
+    width: 97%;
+    top: 5px;
+    max-height: 98vh;
+    overflow: auto;
   }
 }

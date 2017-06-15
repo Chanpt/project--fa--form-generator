@@ -1289,7 +1289,7 @@
     /*
      * Parte 03:
      * Função para gerar o código:
-     * topiccode, postcode, pmcode
+     * topiccode, postcode
      */
 
     var $install = $('.install-wrapper');
