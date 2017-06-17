@@ -2,3 +2,5 @@
 
 Um Gerador de Formulários feito em JavaScript e jQuery para o serviço Forumeiros.    
 O uso é concedido apenas ao autor e aos fóruns de suporte oficiais!
+
+Clique [aqui](https://lffg.github.io/form-generator/) para ver um demo.
